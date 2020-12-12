@@ -25,20 +25,20 @@ const Login: React.FC<Props> = () => {
 	};
 
 	return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" className={styles.Container} >
       <Card>
-        <CardContent className="hola">
-        <FormControl>
-          <InputLabel htmlFor="code">Session code</InputLabel>
-          <Input
-            id="code"
-            aria-describedby="code_h"
-            onChange={(e) => onChangeInput(e)}
-          />
-          <FormHelperText id="code_h">
-            Create a new session
-          </FormHelperText>
-        </FormControl>
+        <CardContent className={styles.CardContainer} >
+          <FormControl>
+            <InputLabel htmlFor="code">Session code</InputLabel>
+            <Input
+              id="code"
+              aria-describedby="code_h"
+              onChange={(e) => onChangeInput(e)}
+            />
+            <FormHelperText id="code_h">
+              Create a new session
+            </FormHelperText>
+          </FormControl>
           <Button
             variant="contained"
             color="primary"
@@ -50,7 +50,6 @@ const Login: React.FC<Props> = () => {
           </Button>
         </CardContent>
       </Card> 
-      <div className={styles.red}>Me bajo a un caballo</div>
     </Container>
 	);
 };
