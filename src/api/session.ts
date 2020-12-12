@@ -1,4 +1,4 @@
-import { Session } from "../types/types"
+import { Session } from "../typings/types"
 import Parse from "parse"
 
 Parse.serverURL = 'https://parseapi.back4app.com';

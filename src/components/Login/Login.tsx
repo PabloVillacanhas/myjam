@@ -8,12 +8,11 @@ import {
   Button,
   Card,
   CardContent,
-  ThemeProvider,
-  useTheme,
 } from "@material-ui/core";
 import { useState } from "react";
-import { postSession } from "../api/session";
-import { Session } from "../types/types";
+import { postSession } from "../../api/session";
+import { Session } from "../../typings/types";
+import styles from './login.module.scss'; 
 
 interface Props{}
 
@@ -51,6 +50,7 @@ const Login: React.FC<Props> = () => {
           </Button>
         </CardContent>
       </Card> 
+      <div className={styles.red}>Me bajo a un caballo</div>
     </Container>
 	);
 };

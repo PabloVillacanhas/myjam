@@ -5,7 +5,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = {
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss'],
   },
   context: resolve(__dirname, '../../src'),
   module: {
@@ -21,16 +21,29 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', { loader: 'css-loader', options: { importLoaders: 1 } }],
+        test: /\.module\.s(a|c)ss$/,
+        use: ['style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: true,
+            }
+          },
+          {
+            loader: 'sass-loader',
+          }
+        ]
       },
       {
-        test: /\.(scss|sass)$/,
-        loaders: [
-          'style-loader',
-          { loader: 'css-loader', options: { importLoaders: 1 } },
-          'sass-loader',
-        ],
+        test: /\.s(a|c)ss$/,
+        exclude: /\.module.(s(a|c)ss)$/,
+        loaders: ['style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+          }
+        ]
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
