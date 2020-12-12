@@ -1,8 +1,8 @@
 import { Container, Card, CardContent, FormControl, InputLabel, Input, FormHelperText, Button } from '@material-ui/core';
 import React, {useState} from 'react'
 import { getSession } from '../../api/session'
-import { Session } from '../../typings/types';
 import styles from './login.module.scss'; 
+import { Link } from 'react-router-dom';
 
 interface Props {
 	
@@ -27,7 +27,7 @@ export const JoinSession = (props: Props) => {
               onChange={(e) => onChangeInput(e)}
             />
             <FormHelperText id="code_h">
-              Create a new session
+              Join to session
             </FormHelperText>
           </FormControl>
           <Button
@@ -39,8 +39,8 @@ export const JoinSession = (props: Props) => {
           >
             Join the session
           </Button>
+          <Link to={'./create'}>Or create a new one</Link>
         </CardContent>
-        <div>Or create a new one</div>
       </Card> 
     </Container>
 	)

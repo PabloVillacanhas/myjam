@@ -12,11 +12,9 @@ const postSession = (session: Session) => {
 
 	myNewObject.save().then(
 		(result) => {
-			if (typeof document !== 'undefined') document.write(`Session created: ${JSON.stringify(result)}`);
 			console.log('Session created', result);
 		},
 		(error) => {
-			if (typeof document !== 'undefined') document.write(`Error while creating Session: ${JSON.stringify(error)}`);
 			console.error('Error while creating Session: ', error);
 		}
 	);
@@ -30,10 +28,8 @@ const getSession = (code: string) => {
 	query.find().then((results) => {
 		// You can use the "get" method to get the value of an attribute
 		// Ex: response.get("<ATTRIBUTE_NAME>")
-		if (typeof document !== 'undefined') document.write(`Session found: ${JSON.stringify(results)}`);
 		console.log('Session found', results);
 	}, (error) => {
-		if (typeof document !== 'undefined') document.write(`Error while fetching Session: ${JSON.stringify(error)}`);
 		console.error('Error while fetching Session', error);
 	});
 };
