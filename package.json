@@ -2,26 +2,7 @@
   "name": "react-webpack-typescript-starter",
   "version": "0.1.0",
   "description": "Starter kit for React, Webpack (with Hot Module Replacement), Typescript and Babel.",
-  "keywords": [
-    "react",
-    "webpack",
-    "typescript",
-    "babel",
-    "sass",
-    "hmr",
-    "starter",
-    "boilerplate"
-  ],
-  "author": "Viktor Persson",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vikpe/react-webpack-typescript-starter.git"
-  },
-  "bugs": {
-    "url": "https://github.com/vikpe/react-webpack-typescript-starter/issues"
-  },
-  "homepage": "https://github.com/vikpe/react-webpack-typescript-starter",
+  "author": "Pablo Villacañas",
   "scripts": {
     "build": "yarn run clean-dist && webpack -p --config=configs/webpack/prod.js",
     "clean-dist": "rimraf dist/*",
@@ -29,7 +10,8 @@
     "start": "yarn run start-dev",
     "start-dev": "webpack-dev-server --config=configs/webpack/dev.js",
     "start-prod": "yarn run build && node express.js",
-    "test": "jest --coverage --watchAll --config=configs/jest.json"
+    "test": "jest --coverage --watchAll --config=configs/jest.json",
+    "stats": "webpack-bundle-analyzer dist/stats.json"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.8",
@@ -56,7 +38,9 @@
     "imagemin-gifsicle": "6.0.1",
     "jest": "^26.6.3",
     "node-sass": "^4.14.1",
+    "nodemon": "^2.0.6",
     "prettier": "^2.2.1",
+    "pug": "^3.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hot-loader": "^4.13.0",
@@ -66,11 +50,13 @@
     "typescript": "^3.9.7",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.43.0",
+    "webpack-bundle-analyzer": "^4.2.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^4.2.2",
-    "nodemon": "^2.0.6",
-    "pug": "^3.0.0"
+    "webpack-merge": "^4.2.2"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.2"
   }
 }
