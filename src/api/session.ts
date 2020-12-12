@@ -23,4 +23,19 @@ const postSession = (session: Session) => {
 	;
 };
 
-export { postSession };
+const getSession = (code: string) => {
+	const Session = Parse.Object.extend('Session');
+	const query = new Parse.Query(Session);
+	query.equalTo("code", code);
+	query.find().then((results) => {
+		// You can use the "get" method to get the value of an attribute
+		// Ex: response.get("<ATTRIBUTE_NAME>")
+		if (typeof document !== 'undefined') document.write(`Session found: ${JSON.stringify(results)}`);
+		console.log('Session found', results);
+	}, (error) => {
+		if (typeof document !== 'undefined') document.write(`Error while fetching Session: ${JSON.stringify(error)}`);
+		console.error('Error while fetching Session', error);
+	});
+};
+
+export { postSession, getSession };
