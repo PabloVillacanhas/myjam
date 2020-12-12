@@ -2,13 +2,16 @@ import { Container, Card, CardContent, FormControl, InputLabel, Input, FormHelpe
 import React, {useState} from 'react'
 import { getSession } from '../../api/session'
 import styles from './login.module.scss'; 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 interface Props {
 	
 }
 
 export const JoinSession = (props: Props) => {
+
+  const history = useHistory();
+
 	const [sessionCode, setSessionCode] = useState<string>(undefined);
 
 	const onChangeInput = (e) => {
@@ -34,7 +37,7 @@ export const JoinSession = (props: Props) => {
             variant="contained"
             color="primary"
             onClick={() => {
-              getSession(sessionCode)
+              history.push(`./session/${sessionCode}`)
             }}
           >
             Join the session

@@ -1,5 +1,6 @@
 import { Session } from "../typings/types"
 import Parse from "parse"
+import { useHistory } from 'react-router-dom';
 
 Parse.serverURL = 'https://parseapi.back4app.com';
 Parse.initialize('nHcnN2cYNyMeGyOi7Sja1TkRZrK9HcNebJG5niOx', 'yJoXLWYHsxIntFMOnhX7Dh31U7JFZ49GiUg4pIGd', 'g3PWDjwXB6hnZYcHdTkEKyjhJvVpXMpTXxWfsQD0');
