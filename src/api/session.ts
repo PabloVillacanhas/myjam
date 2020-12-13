@@ -1,4 +1,4 @@
-import { Session } from "../typings/types"
+import { Session, Song } from "../typings/types"
 import Parse from "parse"
 import { useHistory } from 'react-router-dom';
 
@@ -22,17 +22,15 @@ const postSession = (session: Session) => {
 	;
 };
 
-const getSession = (code: string) => {
-	const Session = Parse.Object.extend('Session');
-	const query = new Parse.Query(Session);
+const getSession = async (code: string): Promise<Session> => {
+	const Session = Parse.Object.extend('Session'); // Declare the type.
+	const query = new Parse.Query(Session).include('songs'); // Create the instance
 	query.equalTo("code", code);
-	query.find().then((results) => {
-		// You can use the "get" method to get the value of an attribute
-		// Ex: response.get("<ATTRIBUTE_NAME>")
-		console.log('Session found', results);
-	}, (error) => {
-		console.error('Error while fetching Session', error);
-	});
+	const session = await query.find();
+	const songs = await session[0].relation('songs').query().findAll();
+	console.log('session', session)
+	console.log('songs', songs)
+	return session as any
 };
 
 export { postSession, getSession };

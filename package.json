@@ -5,6 +5,7 @@
   "author": "Pablo Villacañas",
   "scripts": {
     "build": "yarn run clean-dist && webpack -p --config=configs/webpack/prod.js",
+    "build-dev": "yarn run clean-dist && webpack -d --config=configs/webpack/dev.js",
     "clean-dist": "rimraf dist/*",
     "lint": "eslint './src/**/*.{js,ts,tsx}' --quiet",
     "start": "yarn run start-dev",
@@ -61,6 +62,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
+    "ejs-loader": "^0.5.0",
     "parse": "^2.19.0",
     "react-router-dom": "^5.2.0"
   }
