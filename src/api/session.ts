@@ -26,11 +26,13 @@ const getSession = async (code: string): Promise<Session> => {
 	const Session = Parse.Object.extend('Session'); // Declare the type.
 	const query = new Parse.Query(Session).include('songs'); // Create the instance
 	query.equalTo("code", code);
-	const session = await query.find();
-	const songs = await session[0].relation('songs').query().findAll();
-	console.log('session', session)
-	console.log('songs', songs)
-	return session as any
+	const sessionP = await query.find();
+	const songsP = await sessionP[0].relation('songs').query().findAll();
+
+	let session = sessionP[0].toJSON() as any
+	session.songs = songsP.map(s => s.toJSON())
+
+	return session;
 };
 
 export { postSession, getSession };
