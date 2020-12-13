@@ -4,21 +4,29 @@ import {useParams
 import { getSession } from '../../api/session';
 import { DataGrid, ColDef, ValueGetterParams } from '@material-ui/data-grid';
 import {Session, Song} from '../../typings/types'
+import { searchSongByName } from '../../api/song';
 
 interface Props {
 }
 import {Session as S } from '../../typings/types'
-import { Container } from '@material-ui/core';
+import { Container, TextField } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete/Autocomplete';
 
 const SessionPage = ({}: Props) => {
 
 	let { id } = useParams();
 	
-	const [session, setSession] = useState<Session>(undefined)
+	const [session, setSession] = useState<Session>()
+	const [optionSongs, setOptionSongs] = useState<Array<any>>([])
+	const [filterName, setFilterName] = useState('')
 
 	useEffect(() => {
 		getSession(id).then((session) =>
 			setSession(session)
+		);
+		searchSongByName(filterName).then((songs) => 
+			console.log('Not implemented')
+			// setOptionSongs(Object.keys(songs).map((key) => songs[key].item[0]));
 		)
 	}, [])
 
@@ -46,7 +54,16 @@ const SessionPage = ({}: Props) => {
 			rows={session? [...session.songs.map((s: Song) => {
 				return {...s, ...{id: s.objectId, votes: (Math.random()*10).toFixed(0)}}
 			})] : []}
-			columns={columns} pageSize={5} autoHeight />
+			columns={columns} 
+			pageSize={5} 
+			autoHeight />
+			<Autocomplete
+				id="combo-box-demo"
+				options={optionSongs}
+				getOptionLabel={(option) => option?.name}
+				style={{ width: 300 }}
+				renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}
+		/>
 		</Container>	
 	)
 }
