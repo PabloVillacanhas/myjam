@@ -1,8 +1,10 @@
 {
+    "root": true,
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended", // Uses the recommended rules from @eslint-plugin-react
-        "prettier/@typescript-eslint", // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+        "prettier/@typescript-eslint",
+        "plugin:json/recommended-with-comments", // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
         "plugin:prettier/recommended", // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
     ],
     "parser": "@typescript-eslint/parser",
@@ -14,8 +16,14 @@
             "jsx": true, // Allows for the parsing of JSX
         },
     },
+    "env": {
+        "es6": true,
+        "node": true,
+        "browser": true
+    },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "json"
     ],
     "settings": {
         "react": {
@@ -33,6 +41,14 @@
                     "!@material-ui/core/test-utils/*"
                 ],
             },
+        ],
+        "no-unused-vars": [
+            "warn",
+            {
+                "vars": "all",
+                "args": "after-used",
+                "ignoreRestSiblings": false
+            }
         ],
     },
 }
