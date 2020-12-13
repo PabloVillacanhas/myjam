@@ -6,12 +6,16 @@ const portNumber = 3000;
 const sourceDir = 'dist';
 
 // app.use(express.static(sourceDir));
-app.use('*', proxy({ target: 'http://localhost:8080', changeOrigin: true }));
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+  app.use('*', proxy({ target: 'http://localhost:8080', changeOrigin: true }));
+  console.log(`Serving content from http://localhost:8080`);
+}
+
 app.set('views', path.join(__dirname, '/src/views'));
 
 app.listen(portNumber, () => {
   console.log(`Express web server started: http://localhost:${portNumber}`);
-  console.log(`Serving content from /${sourceDir}/`);
 });
 
 app.use('*', (req, res) => {
@@ -21,4 +25,3 @@ app.use('*', (req, res) => {
 app.get('/api', function (req, res) {
   res.send('api');
 });
-
