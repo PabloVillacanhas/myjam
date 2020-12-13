@@ -12,13 +12,12 @@ module.exports = merge(commonConfig, {
     'webpack/hot/only-dev-server', // bundle the client for hot reloading, only- means to only hot reload for successful updates
     './index.tsx' // the entry point of our app
   ],
-  devServer: {
-    hot: true, // enable HMR on the server
-  },
   output: {
-    filename: 'js/bundle.[hash].min.js',
-    path: resolve(__dirname, '../../dist'),
-    publicPath: '/',
+    publicPath: '/', //Necessary to serve main.js always from nested routes for react-router.  https://stackoverflow.com/questions/56573363/react-router-v4-nested-routes-not-work-with-webpack-dev-server
+  },
+  devServer: {
+    historyApiFallback: true,
+    hot: true, // enable HMR on the server
   },
   devtool: 'cheap-module-eval-source-map',
   plugins: [
