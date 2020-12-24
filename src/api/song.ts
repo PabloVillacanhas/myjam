@@ -13,7 +13,7 @@ const postSong = (song: Song, session: Session) => {
   return undefined
 }
 
-const searchSongByName = async (name: string): Promise<Array<Song>> => {
+const searchSongByNameContains = async (name: string): Promise<Array<Song>> => {
   console.error('Not implemented')
   return undefined
 }
@@ -23,4 +23,4 @@ const searchSongByArtist = async (name: string): Promise<Array<Song>> => {
   return undefined
 }
 
-export { postSong, searchSongByName, searchSongByArtist }
+export { postSong, searchSongByNameContains, searchSongByArtist }
