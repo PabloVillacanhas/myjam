@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getSession } from '../../api/session'
-import { ColDef } from '@material-ui/data-grid'
-import { Session, Song } from '../../typings/types'
+import { Session } from '../../typings/types'
 import { searchSongByNameContains } from '../../api/song'
 
 interface Props {}
@@ -25,12 +24,6 @@ const SessionPage = (props: Props) => {
       // setOptionSongs(Object.keys(songs).map((key) => songs[key].item[0]));
     )
   }, [])
-
-  const columns: ColDef[] = [
-    { field: 'songName', headerName: 'name', width: 90 },
-    { field: 'songTime', headerName: 'time', width: 130 },
-    { field: 'votes', headerName: 'votes', width: 130 },
-  ]
 
   useEffect(() => {
     setSongs(session ? [...session.songs] : [])
