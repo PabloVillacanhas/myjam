@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import { Song } from '../../typings/types'
+import { Track } from '../../typings/types'
 import { useEffect, useState } from 'react'
 
 interface VoteCellProps {
@@ -27,7 +27,7 @@ export const VoteCell = (props: VoteCellProps) => {
 }
 
 export interface ITableProps {
-  songs: Array<Song>
+  songs: Array<Track>
 }
 
 export default function SongTable(props: ITableProps) {

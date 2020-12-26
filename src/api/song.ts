@@ -1,4 +1,4 @@
-import { Session, Song } from '../typings/types'
+import { Track, Paginated } from '../typings/types'
 import Parse from 'parse'
 
 Parse.serverURL = 'https://parseapi.back4app.com'
@@ -8,19 +8,11 @@ Parse.initialize(
   'g3PWDjwXB6hnZYcHdTkEKyjhJvVpXMpTXxWfsQD0',
 )
 
-const postSong = (song: Song, session: Session) => {
-  console.error('Not implemented')
-  return undefined
+const searchSongByNameContains = async (name: string): Promise<Paginated<Track>> => {
+  const tracks = fetch(`http://localhost:3000/api/search?q=${name}&type=track`).then((res) =>
+    res.json().then((r) => r.tracks),
+  )
+  return tracks
 }
 
-const searchSongByNameContains = async (name: string): Promise<Array<Song>> => {
-  console.error('Not implemented')
-  return undefined
-}
-
-const searchSongByArtist = async (name: string): Promise<Array<Song>> => {
-  console.error('Not implemented')
-  return undefined
-}
-
-export { postSong, searchSongByNameContains, searchSongByArtist }
+export { searchSongByNameContains }

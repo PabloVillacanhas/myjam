@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom'
 import { getSession } from '../../api/session'
 import { Session } from '../../typings/types'
 import { searchSongByNameContains } from '../../api/song'
-
-interface Props {}
 import { Container, TextField } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete/Autocomplete'
 import Table from '../UI/SongTable'
+
+interface Props {}
 
 const SessionPage = (props: Props) => {
   let { id } = useParams()
@@ -19,34 +19,30 @@ const SessionPage = (props: Props) => {
 
   useEffect(() => {
     getSession(id).then((session) => setSession(session))
-    searchSongByNameContains(filterName).then(
-      (songs) => console.log('Not implemented'),
-      // setOptionSongs(Object.keys(songs).map((key) => songs[key].item[0]));
-    )
   }, [])
 
   useEffect(() => {
-    setSongs(session ? [...session.songs] : [])
-  }, [session])
-
-  useEffect(() => {
-    console.log('songs', songs)
-  }, [songs])
+    filterName &&
+      searchSongByNameContains(filterName).then((songs) => {
+        setOptionSongs(songs.items || [])
+      })
+  }, [filterName])
 
   return (
     <Container maxWidth="md">
       <Autocomplete
         id="combo-box-demo"
         options={optionSongs}
-        getOptionLabel={(option) => option?.name}
+        clearOnEscape={false}
+        inputValue={filterName || 'Funer'}
+        onChange={(event: any, newValue: string | null) => {
+          console.log('newValue', newValue)
+        }}
+        onInputChange={(event, newInputValue) => setFilterName(newInputValue)}
+        getOptionLabel={(option) => option?.name + ' - ' + option.artists[0].name}
         style={{ width: 300 }}
         renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Combo box"
-            variant="outlined"
-            onChange={(e) => setFilterName(e.target.value)}
-          />
+          <TextField {...params} label="Combo box" variant="outlined" value={filterName} />
         )}
       />
       <Table songs={songs}></Table>

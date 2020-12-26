@@ -1,17 +1,20 @@
 const path = require('path')
 var proxy = require('http-proxy-middleware');
 const express = require('express');
+var cors = require('cors')
 const app = express();
 const portNumber = 3000;
 const sourceDir = 'dist';
+const apiRoutes = require('./server/routes/search');
 
+app.use(cors())
+
+app.use('/api', apiRoutes);
 
 app.listen(portNumber, () => {
   console.log(`Express web server started: http://localhost:${portNumber}`);
 });
 
-
-// app.use(express.static(sourceDir));
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
   app.use('*', proxy({ target: 'http://localhost:8080', changeOrigin: true }));
@@ -21,9 +24,3 @@ if (process.env.NODE_ENV !== 'production') {
     express.sendFile(path.join(__dirname, 'dist', 'index.html'));
   });
 }
-
-app.set('views', path.join(__dirname, '/src/views'));
-
-app.get('/api', function (req, res) {
-  res.send('api');
-});
