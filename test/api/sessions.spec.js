@@ -43,10 +43,31 @@ describe('GET /api/sessions', function () {
     chai.request(server)
       .get('/api/sessions/AAA/tracks')
       .end(function (err, res) {
-        console.log(res.body)
         expect(res.status).to.equal(200)
         expect(res.body).to.have.lengthOf(1)
         expect(res.body[0].tracks).to.have.lengthOf(3)
+        done();
+      });
+  });
+
+  it('should return a 400 error trying to add a track without correct body', function (done) {
+    chai.request(server)
+      .post('/api/sessions/AAA/tracks')
+      .set('content-type', 'application/json')
+      .send({ id: 0 })
+      .end(function (err, res) {
+        expect(res.status).to.equal(400)
+        done();
+      });
+  });
+
+  it('should return 201 when create with correct body', function (done) {
+    chai.request(server)
+      .post('/api/sessions/AAA/tracks')
+      .set('content-type', 'application/json')
+      .send({ id: 0, name: 'random' })
+      .end(function (err, res) {
+        expect(res.status).to.equal(201)
         done();
       });
   });
