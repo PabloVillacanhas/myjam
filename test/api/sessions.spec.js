@@ -38,4 +38,16 @@ describe('GET /api/sessions', function () {
         done();
       });
   });
+
+  it('should return tracks of session by session code', function (done) {
+    chai.request(server)
+      .get('/api/sessions/AAA/tracks')
+      .end(function (err, res) {
+        console.log(res.body)
+        expect(res.status).to.equal(200)
+        expect(res.body).to.have.lengthOf(1)
+        expect(res.body[0].tracks).to.have.lengthOf(3)
+        done();
+      });
+  });
 });
