@@ -1,4 +1,19 @@
 module.exports = {
+	test: {
+		client: 'pg',
+		connection: {
+			host: 'postgres',
+			user: 'myjam',
+			password: 'myjam',
+			database: 'myjam_test'
+		},
+		migrations: {
+			directory: __dirname + '/migrations'
+		},
+		seeds: {
+			directory: __dirname + '/seeds'
+		}
+	},
 	development: {
 		client: 'pg',
 		connection: {
