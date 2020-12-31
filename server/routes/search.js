@@ -2,8 +2,7 @@ const fetch = require('node-fetch')
 const express = require('express')
 const apiRouter = express.Router()
 
-apiRouter.get('/search', function (req, resp) {
-  console.log('hola')
+apiRouter.get('/', function (req, resp) {
   fetch(
     'https://api.spotify.com/v1/search?' +
     new URLSearchParams({
