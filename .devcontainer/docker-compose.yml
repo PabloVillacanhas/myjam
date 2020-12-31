@@ -19,7 +19,9 @@ services:
     volumes:
       - postgresvol:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=myjam
+      - POSTGRES_PASSWORD=myjam
+      - POSTGRES_DB:myjam 
     ports:
       - "5432:5432"
 volumes:

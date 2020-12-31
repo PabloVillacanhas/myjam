@@ -67,9 +67,11 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "ejs-loader": "^0.5.0",
+    "knex": "^0.21.14",
     "node-fetch": "^2.6.1",
     "node-postgres": "^0.6.2",
     "parse": "^2.19.0",
+    "pg": "^8.5.1",
     "react-router-dom": "^5.2.0",
     "spotify-web-api-js": "^1.5.1"
   }
