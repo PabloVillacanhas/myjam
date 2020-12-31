@@ -5,11 +5,10 @@ var cors = require('cors')
 const app = express();
 const portNumber = process.env.PORT || 3000
 const sourceDir = 'dist';
-const apiRouter = require('./server/routes')(app);
+
+require('./server/routes')(app);
 
 app.use(cors())
-
-// app.use('/api', apiRouter);
 
 app.listen(portNumber, () => {
   console.log(`Express web server started: http://localhost:${portNumber}`);
