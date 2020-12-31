@@ -4,7 +4,7 @@ process.env.PORT = '9999';
 var chai = require('chai');
 var expect = chai.expect;
 var chaiHttp = require('chai-http');
-var server = require('../express');
+var server = require('../../express');
 
 chai.use(chaiHttp);
 
