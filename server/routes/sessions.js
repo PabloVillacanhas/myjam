@@ -2,7 +2,6 @@ const express = require('express')
 const Knex = require('../../db/knex')
 const apiRouter = express.Router()
 const { body, validationResult } = require('express-validator');
-const { send } = require('process');
 
 apiRouter.get('/', function (req, res) {
 	Knex.from('sessions').then((r) => res.send(r))
@@ -10,7 +9,7 @@ apiRouter.get('/', function (req, res) {
 
 apiRouter.post('/:code', function (req, res) {
 	Knex.insert({ code: req.params.code }).into('sessions')
-		.then((r) => res.status(201).send())
+		.then(() => res.status(201).send())
 		.catch(e => {
 			console.log('e :>> ', e);
 			res.status(500).send()
@@ -61,10 +60,10 @@ apiRouter.post('/:code/tracks', [
 		.then(() => {
 			insertTrackIntoSession(req.params.code, req.body.id).then(() => res.status(201).send())
 		})
-		.catch((e) => {
+		.catch(() => {
 			insertTrackIntoSession(req.params.code, req.body.id)
 				.then(() => res.status(201).send())
-				.catch((e) => {
+				.catch(() => {
 					incrementVotesBy1(req.params.code, req.body.id).then(
 						() => res.status(204).send())
 				})
