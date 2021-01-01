@@ -105,6 +105,18 @@ describe('GET /api/sessions', function () {
       });
   });
 
+  it('should return 201 and increment a vote when vote a track', function (done) {
+    chai.request(server)
+      .post('/api/sessions/AAA/tracks/1/vote')
+      .end(function (err, res) {
+        expect(res.status).to.equal(204)
+        Knex.select('votes').from('sessions_tracks').where({ track_id: 1 })
+          .then((r) => {
+            expect(r[0].votes).equals(1);
+            done();
+          })
+      });
+  });
   // it('should return 204 when delete track from session', function (done) {
   //   chai.request(server)
   //     .delete('/api/sessions/AAA/tracks')
