@@ -2796,6 +2796,11 @@ chai-http@^4.3.0:
     qs "^6.5.1"
     superagent "^3.7.0"
 
+chai-things@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/chai-things/-/chai-things-0.2.0.tgz#c55128378f9bb399e994f00052151984ed6ebe70"
+  integrity sha1-xVEoN4+bs5nplPAAUhUZhO1uvnA=
+
 chai@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/chai/-/chai-4.2.0.tgz#760aa72cf20e3795e84b12877ce0e83737aa29e5"

@@ -1,11 +1,16 @@
 process.env.NODE_ENV = 'test';
 process.env.PORT = '9999';
 
-var chai = require('chai');
-var expect = chai.expect;
-var chaiHttp = require('chai-http');
 const Knex = require('../../db/knex');
 var server = require('../../express');
+
+var chai = require('chai');
+var expect = chai.expect;
+chai.should()
+chai.use(require('chai-things'));
+var chaiHttp = require('chai-http');
+const { isConstructSignatureDeclaration } = require('typescript');
+
 
 chai.use(chaiHttp);
 
@@ -53,6 +58,7 @@ describe('GET /api/sessions', function () {
         expect(res.status).to.equal(200)
         expect(res.body).to.have.lengthOf(1)
         expect(res.body[0].tracks).to.have.lengthOf(3)
+        res.body[0].tracks.should.all.have.keys('votes', 'name', 'id')
         done();
       });
   });

@@ -13,14 +13,12 @@ apiRouter.get('/:code', function (req, res) {
 
 apiRouter.get('/:code/tracks', function (req, res) {
 	Knex.from('sessions').where({ code: req.params.code }).then((session) =>
-		Knex.select('track_id').from('sessions_tracks').where({ session_code: req.params.code })
-			.then(track_ids => {
-				Knex.from('tracks').whereIn(['id'], track_ids.map(t => t.track_id)).then(
-					tracks => {
-						session[0].tracks = tracks
-						res.send(session)
-					}
-				)
+		Knex.select('tracks.id', 'tracks.name', 'sessions_tracks.votes').from('tracks')
+			.innerJoin('sessions_tracks', 'sessions_tracks.track_id', "tracks.id")
+			.where({ session_code: req.params.code })
+			.then((tracks) => {
+				session[0].tracks = tracks
+				res.send(session)
 			})
 	)
 })
