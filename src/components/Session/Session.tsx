@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getSession } from '../../api/session'
 import { Session } from '../../typings/types'
-import { searchSongByNameContains } from '../../api/song'
+import { searchTrackByNameContains } from '../../api/track'
 import { Container, TextField } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete/Autocomplete'
-import Table from '../UI/SongTable'
+import Table from '../UI/TrackTable'
 
 interface Props {}
 
@@ -13,9 +13,9 @@ const SessionPage = (props: Props) => {
   let { id } = useParams()
 
   const [session, setSession] = useState<Session>()
-  const [optionSongs, setOptionSongs] = useState<Array<any>>([])
+  const [optiontracks, setOptiontracks] = useState<Array<any>>([])
   const [filterName, setFilterName] = useState('')
-  const [songs, setSongs] = useState([])
+  const [tracks, settracks] = useState([])
 
   useEffect(() => {
     getSession(id).then((session) => setSession(session))
@@ -23,8 +23,8 @@ const SessionPage = (props: Props) => {
 
   useEffect(() => {
     filterName &&
-      searchSongByNameContains(filterName).then((songs) => {
-        setOptionSongs(songs.items || [])
+      searchTrackByNameContains(filterName).then((tracks) => {
+        setOptiontracks(tracks.items || [])
       })
   }, [filterName])
 
@@ -32,7 +32,7 @@ const SessionPage = (props: Props) => {
     <Container maxWidth="md">
       <Autocomplete
         id="combo-box-demo"
-        options={optionSongs}
+        options={optiontracks}
         clearOnEscape={false}
         inputValue={filterName || 'Funer'}
         onChange={(event: any, newValue: string | null) => {
@@ -45,7 +45,7 @@ const SessionPage = (props: Props) => {
           <TextField {...params} label="Combo box" variant="outlined" value={filterName} />
         )}
       />
-      <Table songs={songs}></Table>
+      <Table tracks={tracks}></Table>
     </Container>
   )
 }

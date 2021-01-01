@@ -8543,7 +8543,7 @@ path-parse@^1.0.6:
 path-root-regex@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/path-root-regex/-/path-root-regex-0.1.2.tgz#bfccdc8df5b12dc52c8b43ec38d18d72c04ba96d"
-  integrity sha1-v8zcjfWxLcUsi0PsONGNcsBLqW0=
+  integrity sha1-v8zcjfWxLcUsi0PTrackNcsBLqW0=
 
 path-root@^0.1.1:
   version "0.1.1"

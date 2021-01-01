@@ -27,18 +27,18 @@ export const VoteCell = (props: VoteCellProps) => {
 }
 
 export interface ITableProps {
-  songs: Array<Track>
+  tracks: Array<Track>
 }
 
-export default function SongTable(props: ITableProps) {
-  const [songs, setSongs] = useState([])
+export default function TrackTable(props: ITableProps) {
+  const [tracks, settracks] = useState([])
 
   useEffect(() => {
-    setSongs(props.songs)
-  }, [props.songs])
+    settracks(props.tracks)
+  }, [props.tracks])
 
-  const onChangeVote = (songId, votes) => {
-    setSongs([...songs.map((s) => (s.objectId === songId ? { ...s, votes: votes } : { ...s }))])
+  const onChangeVote = (TrackId, votes) => {
+    settracks([...tracks.map((s) => (s.objectId === TrackId ? { ...s, votes: votes } : { ...s }))])
   }
 
   return (
@@ -46,18 +46,18 @@ export default function SongTable(props: ITableProps) {
       <Table size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell align="right">Song name</TableCell>
+            <TableCell align="right">Track name</TableCell>
             <TableCell align="right">Duration</TableCell>
             <TableCell align="right">Votes</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {songs.map((row) => (
+          {tracks.map((row) => (
             <TableRow key={row.objectId}>
               <TableCell component="th" scope="row">
-                {row.songName}
+                {row.TrackName}
               </TableCell>
-              <TableCell align="right">{row.songTime}</TableCell>
+              <TableCell align="right">{row.TrackTime}</TableCell>
               <TableCell align="right">
                 <VoteCell
                   votes={row.votes ? row.votes : parseInt((Math.random() * 10).toFixed(0))}
