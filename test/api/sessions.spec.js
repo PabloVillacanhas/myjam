@@ -9,8 +9,6 @@ var expect = chai.expect;
 chai.should()
 chai.use(require('chai-things'));
 var chaiHttp = require('chai-http');
-const { isConstructSignatureDeclaration } = require('typescript');
-
 
 chai.use(chaiHttp);
 
