@@ -31,6 +31,19 @@ describe('GET /api/sessions', function () {
       });
   });
 
+  it('should create a session', function (done) {
+    chai.request(server)
+      .post('/api/sessions/DDD')
+      .end(function (err, res) {
+        expect(res.status).to.equal(201)
+        Knex.select().where({ code: 'DDD' }).from('sessions')
+          .then((s) => {
+            expect(s).not.null
+            done();
+          })
+      });
+  });
+
   it('should return a session given its code', function (done) {
     chai.request(server)
       .get('/api/sessions/AAA')
@@ -117,6 +130,7 @@ describe('GET /api/sessions', function () {
           })
       });
   });
+
   // it('should return 204 when delete track from session', function (done) {
   //   chai.request(server)
   //     .delete('/api/sessions/AAA/tracks')

@@ -8,6 +8,15 @@ apiRouter.get('/', function (req, res) {
 	Knex.from('sessions').then((r) => res.send(r))
 })
 
+apiRouter.post('/:code', function (req, res) {
+	Knex.insert({ code: req.params.code }).into('sessions')
+		.then((r) => res.status(201).send())
+		.catch(e => {
+			console.log('e :>> ', e);
+			res.status(500).send()
+		})
+})
+
 apiRouter.get('/:code', function (req, res) {
 	Knex.from('sessions').where({ code: req.params.code }).then((r) => res.send(r))
 })
