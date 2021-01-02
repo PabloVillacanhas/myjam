@@ -8,7 +8,7 @@ const searchTrackByNameContains = async (name: string): Promise<Paginated<Track>
 }
 
 const postTrackIntoSession = async (session: Session, track: Track): Promise<Response> => {
-  const tracks = await fetch(`/api/sessions/${session.code}/tracks`, {
+  const tracks = await fetch(`/api/sessions/${session.id}/tracks`, {
     method: 'POST',
     headers: new Headers({ 'content-type': 'application/json' }),
     body: JSON.stringify({

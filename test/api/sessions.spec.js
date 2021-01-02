@@ -31,10 +31,12 @@ describe('GET /api/sessions', function () {
 
   it('should create a session', function (done) {
     chai.request(server)
-      .post('/api/sessions/DDD')
+      .post('/api/sessions')
+      .set('content-type', 'application/json')
+      .send({ id: 'DDD' })
       .end(function (err, res) {
         expect(res.status).to.equal(201)
-        Knex.select().where({ code: 'DDD' }).from('sessions')
+        Knex.select().where({ id: 'DDD' }).from('sessions')
           .then((s) => {
             expect(s).not.null
             done();
@@ -42,7 +44,7 @@ describe('GET /api/sessions', function () {
       });
   });
 
-  it('should return a session given its code', function (done) {
+  it('should return a session given its id', function (done) {
     chai.request(server)
       .get('/api/sessions/AAA')
       .end(function (err, res) {
@@ -61,7 +63,7 @@ describe('GET /api/sessions', function () {
       });
   });
 
-  it('should return tracks of session by session code', function (done) {
+  it('should return tracks of session by session id', function (done) {
     chai.request(server)
       .get('/api/sessions/AAA/tracks')
       .end(function (err, res) {

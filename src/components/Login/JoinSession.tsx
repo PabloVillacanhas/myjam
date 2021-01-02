@@ -17,10 +17,10 @@ interface Props {}
 export const JoinSession = (props: Props) => {
   const history = useHistory()
 
-  const [sessionCode, setSessionCode] = useState<string>(undefined)
+  const [sessionid, setSessionid] = useState<string>(undefined)
 
   const onChangeInput = (e) => {
-    setSessionCode(e.target.value)
+    setSessionid(e.target.value)
   }
 
   return (
@@ -28,15 +28,15 @@ export const JoinSession = (props: Props) => {
       <Card>
         <CardContent className={styles.CardContainer}>
           <FormControl>
-            <InputLabel htmlFor="code">Session code</InputLabel>
-            <Input id="code" aria-describedby="code_h" onChange={(e) => onChangeInput(e)} />
-            <FormHelperText id="code_h">Join to session</FormHelperText>
+            <InputLabel htmlFor="id">Session id</InputLabel>
+            <Input id="id" aria-describedby="id_h" onChange={(e) => onChangeInput(e)} />
+            <FormHelperText id="id_h">Join to session</FormHelperText>
           </FormControl>
           <Button
             variant="contained"
             color="primary"
             onClick={() => {
-              history.push(`./session/${sessionCode}`)
+              history.push(`./session/${sessionid}`)
             }}
           >
             Join the session

@@ -1,13 +1,13 @@
 import { Session } from '../typings/types'
 
 const postSession = async (session: Session) => {
-  return fetch(`/api/sessions/${session.code}`, {
+  return fetch(`/api/sessions/${session.id}`, {
     method: 'POST',
   })
 }
 
-const getSession = async (code: string): Promise<Session> => {
-  let response = await fetch(`/api/sessions/${code}`)
+const getSession = async (id: string): Promise<Session> => {
+  let response = await fetch(`/api/sessions/${id}`)
   return response.json()
 }
 

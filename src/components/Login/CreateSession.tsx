@@ -32,15 +32,15 @@ export const CreateSession = (props: Props) => {
       <Card>
         <CardContent className={styles.CardContainer}>
           <FormControl>
-            <InputLabel htmlFor="code">Session code</InputLabel>
-            <Input id="code" aria-describedby="code_h" onChange={(e) => onChangeInput(e)} />
-            <FormHelperText id="code_h">Create a new session</FormHelperText>
+            <InputLabel htmlFor="id">Session id</InputLabel>
+            <Input id="id" aria-describedby="id_h" onChange={(e) => onChangeInput(e)} />
+            <FormHelperText id="id_h">Create a new session</FormHelperText>
           </FormControl>
           <Button
             variant="contained"
             color="primary"
             onClick={() => {
-              postSession(formValues).then(() => history.push(`session/${formValues.code}`))
+              postSession(formValues).then(() => history.push(`session/${formValues.id}`))
             }}
           >
             Create the session
