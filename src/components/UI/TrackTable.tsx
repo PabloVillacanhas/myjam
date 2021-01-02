@@ -9,37 +9,18 @@ import TableRow from '@material-ui/core/TableRow'
 import { Track } from '../../typings/types'
 import { useEffect, useState } from 'react'
 
-interface VoteCellProps {
-  votes: number
-  onChangeVote?: (number) => void
-}
-
-export const VoteCell = (props: VoteCellProps) => {
-  return (
-    <button
-      onClick={(e) => {
-        props.onChangeVote(props.votes + 1)
-      }}
-    >
-      {props.votes}
-    </button>
-  )
-}
-
 export interface ITableProps {
   tracks: Array<Track>
+  onChangeTrackVote: (track) => void
 }
 
 export default function TrackTable(props: ITableProps) {
-  const [tracks, settracks] = useState([])
+  const [tracks, setTracks] = useState([])
 
   useEffect(() => {
-    settracks(props.tracks)
+    setTracks(props.tracks)
+    console.log('tracks', props.tracks)
   }, [props.tracks])
-
-  const onChangeVote = (TrackId, votes) => {
-    settracks([...tracks.map((s) => (s.objectId === TrackId ? { ...s, votes: votes } : { ...s }))])
-  }
 
   return (
     <TableContainer component={Paper}>
@@ -53,18 +34,13 @@ export default function TrackTable(props: ITableProps) {
         </TableHead>
         <TableBody>
           {tracks.map((row) => (
-            <TableRow key={row.objectId}>
+            <TableRow key={row.id}>
               <TableCell component="th" scope="row">
-                {row.TrackName}
+                {row.name}
               </TableCell>
               <TableCell align="right">{row.TrackTime}</TableCell>
               <TableCell align="right">
-                <VoteCell
-                  votes={row.votes ? row.votes : parseInt((Math.random() * 10).toFixed(0))}
-                  onChangeVote={(vote) => {
-                    onChangeVote(row.objectId, vote)
-                  }}
-                ></VoteCell>
+                <button onClick={(e) => props.onChangeTrackVote(row)}>{row.votes}</button>
               </TableCell>
             </TableRow>
           ))}

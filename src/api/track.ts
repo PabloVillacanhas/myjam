@@ -19,4 +19,11 @@ const postTrackIntoSession = async (session: Session, track: Track): Promise<Res
   return tracks
 }
 
-export { searchTrackByNameContains, postTrackIntoSession }
+const voteTrack = async (session: Session, track: Track): Promise<Response> => {
+  const tracks = await fetch(`/api/sessions/${session.id}/tracks/${track.id}/vote`, {
+    method: 'POST',
+  })
+  return tracks
+}
+
+export { searchTrackByNameContains, postTrackIntoSession, voteTrack }

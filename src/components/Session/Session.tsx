@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getSession } from '../../api/session'
 import { Session, Track } from '../../typings/types'
-import { searchTrackByNameContains, postTrackIntoSession } from '../../api/track'
+import { searchTrackByNameContains, postTrackIntoSession, voteTrack } from '../../api/track'
 import { Container, TextField } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete/Autocomplete'
 import Table from '../UI/TrackTable'
@@ -15,10 +15,9 @@ const SessionPage = (props: Props) => {
   const [session, setSession] = useState<Session>()
   const [optiontracks, setOptiontracks] = useState<Array<any>>([])
   const [filterName, setFilterName] = useState('')
-  const [tracks, setTracks] = useState([])
 
   useEffect(() => {
-    getSession(id).then((session) => setSession(session[0]))
+    getSession(id).then((session) => setSession(session))
   }, [])
 
   useEffect(() => {
@@ -28,6 +27,19 @@ const SessionPage = (props: Props) => {
       })
   }, [filterName])
 
+  const onChangeTrackVote = (track) => {
+    voteTrack(session, track).then(() =>
+      setSession({
+        ...session,
+        tracks: [
+          ...session.tracks.map((t) =>
+            t.id === track.id ? { ...t, votes: track.votes + 1 } : { ...t },
+          ),
+        ],
+      }),
+    )
+  }
+
   return (
     <Container maxWidth="md">
       <Autocomplete
@@ -35,8 +47,10 @@ const SessionPage = (props: Props) => {
         options={optiontracks as Array<Track>}
         clearOnEscape={true}
         onChange={(event: any, track: Track | null) => {
+          console.log('session', session)
           postTrackIntoSession(session, track).then(() => {
-            setTracks([...tracks, track])
+            track.votes = 0
+            setSession({ ...session, tracks: [...session.tracks, track] })
             setFilterName('')
           })
         }}
@@ -47,7 +61,7 @@ const SessionPage = (props: Props) => {
           <TextField {...params} label="Combo box" variant="outlined" value={filterName} />
         )}
       />
-      <Table tracks={tracks}></Table>
+      <Table tracks={session?.tracks || []} onChangeTrackVote={onChangeTrackVote}></Table>
     </Container>
   )
 }
