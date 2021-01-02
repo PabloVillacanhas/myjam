@@ -31,8 +31,15 @@ module.exports = knex => {
 		)
 	}
 
+	const incrementVotesBy1 = async (session_id, track_id) => {
+		return knex('sessions_tracks')
+			.where({ session_id: session_id, track_id: track_id })
+			.increment('votes')
+	}
+
 	return {
 		...crud,
-		findOneWithTracks
+		findOneWithTracks,
+		incrementVotesBy1
 	}
 }

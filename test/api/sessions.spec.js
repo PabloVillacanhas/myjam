@@ -116,7 +116,7 @@ describe('GET /api/sessions', function () {
       });
   });
 
-  it('SESSION-9 should return 201 and increment a vote when vote a track', function (done) {
+  it('SESSION-9 should return 204 and increment a vote when vote a track', function (done) {
     chai.request(server)
       .post('/api/sessions/AAA/tracks/keAJT0e6DG/vote')
       .end(function (err, res) {

@@ -19,3 +19,11 @@ exports.create_session = function (req, res) {
 			res.status(500).send()
 		})
 };
+
+exports.vote_track = function (req, res) {
+	sessionService.incrementVotesBy1(req.params.id, req.params.track_id)
+		.then(() => res.status(204).send())
+		.catch(e => {
+			res.status(500).send()
+		})
+};

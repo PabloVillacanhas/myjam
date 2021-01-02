@@ -30,11 +30,7 @@ const incrementVotesBy1 = async (session_id, track_id) => {
 		.increment('votes')
 }
 
-apiRouter.post('/:id/tracks/:track_id/vote', function (req, res) {
-	incrementVotesBy1(req.params.id, req.params.track_id).then(() => {
-		res.status(204).send()
-	})
-})
+apiRouter.post('/:id/tracks/:track_id/vote', sessionsController.vote_track)
 
 apiRouter.post('/:id/tracks', [
 	body('id').notEmpty().withMessage('id is required'),
