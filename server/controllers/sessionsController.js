@@ -2,8 +2,11 @@
 const knex = require('../../db/knex')
 const sessionService = require('../services/sessionService')(knex)
 
+exports.findAll_session = function (req, res) {
+	sessionService.findAll().then((sessions) => res.send(sessions))
+};
+
 exports.get_session = function (req, res) {
-	console.log('req.params.id', req.params.id)
 	sessionService.findOneWithTracks({ id: req.params.id })
 		.then((session) => session ? res.send(session) : res.status(404).send())
 		.catch(e => res.status(500).send(e))

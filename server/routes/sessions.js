@@ -5,9 +5,7 @@ const { body, validationResult } = require('express-validator');
 
 const sessionsController = require('../controllers/sessionsController')
 
-apiRouter.get('/', function (req, res) {
-	Knex.from('sessions').then((r) => res.send(r))
-})
+apiRouter.get('/', sessionsController.findAll_session)
 
 apiRouter.post('/', sessionsController.create_session)
 
