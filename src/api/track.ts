@@ -1,10 +1,22 @@
-import { Track, Paginated } from '../typings/types'
+import { Track, Paginated, Session } from '../typings/types'
 
 const searchTrackByNameContains = async (name: string): Promise<Paginated<Track>> => {
-  const tracks = fetch(`http://localhost:3000/api/search?q=${name}&type=track`).then((res) =>
+  const tracks = fetch(`/api/search?q=${name}&type=track`).then((res) =>
     res.json().then((r) => r.tracks),
   )
   return tracks
 }
 
-export { searchTrackByNameContains }
+const postTrackIntoSession = async (session: Session, track: Track): Promise<Response> => {
+  const tracks = await fetch(`/api/sessions/${session.code}/tracks`, {
+    method: 'POST',
+    headers: new Headers({ 'content-type': 'application/json' }),
+    body: JSON.stringify({
+      id: track.id,
+      name: track.name,
+    }),
+  })
+  return tracks
+}
+
+export { searchTrackByNameContains, postTrackIntoSession }

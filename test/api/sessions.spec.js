@@ -56,8 +56,7 @@ describe('GET /api/sessions', function () {
     chai.request(server)
       .get('/api/sessions/UNDEFINED')
       .end(function (err, res) {
-        expect(res.status).to.equal(200)
-        expect(res.body).to.have.lengthOf(0)
+        expect(res.status).to.equal(404)
         done();
       });
   });
@@ -67,9 +66,8 @@ describe('GET /api/sessions', function () {
       .get('/api/sessions/AAA/tracks')
       .end(function (err, res) {
         expect(res.status).to.equal(200)
-        expect(res.body).to.have.lengthOf(1)
-        expect(res.body[0].tracks).to.have.lengthOf(3)
-        res.body[0].tracks.should.all.have.keys('votes', 'name', 'id')
+        expect(res.body).to.have.lengthOf(3)
+        res.body.should.all.have.keys('votes', 'name', 'id')
         done();
       });
   });

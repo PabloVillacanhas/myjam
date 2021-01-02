@@ -11,25 +11,33 @@ apiRouter.post('/:code', function (req, res) {
 	Knex.insert({ code: req.params.code }).into('sessions')
 		.then(() => res.status(201).send())
 		.catch(e => {
-			console.log('e :>> ', e);
 			res.status(500).send()
 		})
 })
 
 apiRouter.get('/:code', function (req, res) {
-	Knex.from('sessions').where({ code: req.params.code }).then((r) => res.send(r))
+	Knex.from('sessions').where({ code: req.params.code }).then((session) => {
+		session.length > 0 ?
+			Knex.select('tracks.id', 'tracks.name', 'sessions_tracks.votes').from('tracks')
+				.innerJoin('sessions_tracks', 'sessions_tracks.track_id', "tracks.id")
+				.where({ session_code: req.params.code })
+				.then((tracks) => {
+					session[0].tracks = tracks
+					res.send(session)
+				}).catch((e) => console.log('e :>> ', e))
+			:
+			res.status(404).send()
+	}
+	)
 })
 
 apiRouter.get('/:code/tracks', function (req, res) {
-	Knex.from('sessions').where({ code: req.params.code }).then((session) =>
-		Knex.select('tracks.id', 'tracks.name', 'sessions_tracks.votes').from('tracks')
-			.innerJoin('sessions_tracks', 'sessions_tracks.track_id', "tracks.id")
-			.where({ session_code: req.params.code })
-			.then((tracks) => {
-				session[0].tracks = tracks
-				res.send(session)
-			})
-	)
+	Knex.select('tracks.id', 'tracks.name', 'sessions_tracks.votes').from('tracks')
+		.innerJoin('sessions_tracks', 'sessions_tracks.track_id', "tracks.id")
+		.where({ session_code: req.params.code })
+		.then((tracks) => {
+			res.send(tracks)
+		}).catch((e) => console.log('e :>> ', e))
 })
 
 const insertTrackIntoSession = async (session_code, track_id) => {
