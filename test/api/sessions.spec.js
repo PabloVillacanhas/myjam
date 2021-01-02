@@ -63,18 +63,7 @@ describe('GET /api/sessions', function () {
       });
   });
 
-  it('SESSION-5 should return tracks of session by session id', function (done) {
-    chai.request(server)
-      .get('/api/sessions/AAA/tracks')
-      .end(function (err, res) {
-        expect(res.status).to.equal(200)
-        expect(res.body).to.have.lengthOf(3)
-        res.body.should.all.have.keys('votes', 'name', 'id')
-        done();
-      });
-  });
-
-  it('SESSION-6 should return a 400 error trying to add a track without correct body', function (done) {
+  it('SESSION-5 should return a 400 error trying to add a track without correct body', function (done) {
     chai.request(server)
       .post('/api/sessions/AAA/tracks')
       .set('content-type', 'application/json')
@@ -85,7 +74,7 @@ describe('GET /api/sessions', function () {
       });
   });
 
-  it('SESSION-7 should return 204 and attach to session when create with correct body and track does not exist', function (done) {
+  it('SESSION-6 should return 204 and attach to session when create with correct body and track does not exist', function (done) {
     chai.request(server)
       .post('/api/sessions/AAA/tracks')
       .set('content-type', 'application/json')
@@ -101,7 +90,7 @@ describe('GET /api/sessions', function () {
       });
   });
 
-  it('SESSION-8 should return 204 and increment a vote when create with correct body and track exist', function (done) {
+  it('SESSION-7 should return 204 and increment a vote when create with correct body and track exist', function (done) {
     chai.request(server)
       .post('/api/sessions/AAA/tracks')
       .set('content-type', 'application/json')
@@ -116,7 +105,7 @@ describe('GET /api/sessions', function () {
       });
   });
 
-  it('SESSION-9 should return 204 and increment a vote when vote a track', function (done) {
+  it('SESSION-8 should return 204 and increment a vote when vote a track', function (done) {
     chai.request(server)
       .post('/api/sessions/AAA/tracks/keAJT0e6DG/vote')
       .end(function (err, res) {
