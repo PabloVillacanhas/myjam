@@ -4,6 +4,7 @@ const apiRouter = express.Router()
 const { body, validationResult } = require('express-validator');
 
 const sessionsController = require('../controllers/sessionsController')
+const trackValidator = require('../validators/validateTrack')
 
 apiRouter.get('/', sessionsController.findAll_session)
 
@@ -24,34 +25,8 @@ const insertTrackIntoSession = async (session_id, track_id) => {
 	return Knex.insert({ session_id: session_id, track_id: track_id }).into('sessions_tracks')
 }
 
-const incrementVotesBy1 = async (session_id, track_id) => {
-	return Knex('sessions_tracks')
-		.where({ session_id: session_id, track_id: track_id })
-		.increment('votes')
-}
-
 apiRouter.post('/:id/tracks/:track_id/vote', sessionsController.vote_track)
 
-apiRouter.post('/:id/tracks', [
-	body('id').notEmpty().withMessage('id is required'),
-	body('name').notEmpty().withMessage('name is required'),
-], function (req, res) {
-	const errors = validationResult(req);
-	if (!errors.isEmpty()) {
-		return res.status(400).json({ errors: errors.array() });
-	}
-	Knex.insert(req.body).into('tracks')
-		.then(() => {
-			insertTrackIntoSession(req.params.id, req.body.id).then(() => res.status(201).send())
-		})
-		.catch(() => {
-			insertTrackIntoSession(req.params.id, req.body.id)
-				.then(() => res.status(201).send())
-				.catch(() => {
-					incrementVotesBy1(req.params.id, req.body.id).then(
-						() => res.status(204).send())
-				})
-		})
-})
+apiRouter.post('/:id/tracks', trackValidator.validateTrack, sessionsController.post_trackIntoSession)
 
 module.exports = apiRouter

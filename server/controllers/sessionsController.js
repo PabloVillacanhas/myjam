@@ -27,3 +27,11 @@ exports.vote_track = function (req, res) {
 			res.status(500).send()
 		})
 };
+
+exports.post_trackIntoSession = function (req, res) {
+	sessionService.insertTrackIntoSession(req.params.id, req.body)
+		.then((e) => res.status(204).send())
+		.catch(e => {
+			res.status(500).send()
+		})
+};

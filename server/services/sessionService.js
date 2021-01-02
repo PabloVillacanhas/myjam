@@ -37,9 +37,25 @@ module.exports = knex => {
 			.increment('votes')
 	}
 
+	const insertTrackIntoSession = async (session_id, track) => {
+		return knex.insert(track).into('tracks')
+			.then(() =>
+				knex.insert({ session_id: session_id, track_id: track.id }).into('sessions_tracks')
+			)
+			.catch(() =>
+				//Already into tracks
+				knex.insert({ session_id: session_id, track_id: track.id }).into('sessions_tracks')
+					.catch(() =>
+						//Already in session
+						incrementVotesBy1(session_id, track.id)
+					)
+			)
+	}
+
 	return {
 		...crud,
 		findOneWithTracks,
-		incrementVotesBy1
+		incrementVotesBy1,
+		insertTrackIntoSession
 	}
 }

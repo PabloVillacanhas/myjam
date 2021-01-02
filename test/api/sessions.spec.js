@@ -80,7 +80,7 @@ describe('GET /api/sessions', function () {
       .set('content-type', 'application/json')
       .send({ id: 0 })
       .end(function (err, res) {
-        expect(res.status).to.equal(400)
+        expect(res.status).to.equal(422)
         done();
       });
   });
@@ -91,17 +91,17 @@ describe('GET /api/sessions', function () {
       .set('content-type', 'application/json')
       .send({ id: 'vrsdG3SDas13FhX', name: 'random' })
       .end(function (err, res) {
-        expect(res.status).to.equal(201)
+        expect(res.status).to.equal(204)
         Knex.select().from('sessions_tracks').then(
           (r) => {
-            expect(r).have.lengthOf(4);
+            expect(r).to.have.lengthOf(4);
             done();
           }
         )
       });
   });
 
-  it('SESSION-8 should return 201 and increment a vote when create with correct body and track exist', function (done) {
+  it('SESSION-8 should return 204 and increment a vote when create with correct body and track exist', function (done) {
     chai.request(server)
       .post('/api/sessions/AAA/tracks')
       .set('content-type', 'application/json')
