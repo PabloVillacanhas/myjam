@@ -12,7 +12,7 @@ import { Session } from '../../typings/types'
 import React, { useState } from 'react'
 import { postSession } from '../../api/session'
 import styles from './login.module.scss'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 interface Props {
   a: string
@@ -20,6 +20,7 @@ interface Props {
 }
 
 export const CreateSession = (props: Props) => {
+  const history = useHistory()
   const [formValues, setFormValues] = useState<Session>(undefined)
 
   const onChangeInput = (e) => {
@@ -39,7 +40,7 @@ export const CreateSession = (props: Props) => {
             variant="contained"
             color="primary"
             onClick={() => {
-              postSession(formValues)
+              postSession(formValues).then(() => history.push(`session/${formValues.code}`))
             }}
           >
             Create the session
