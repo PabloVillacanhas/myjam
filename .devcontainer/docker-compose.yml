@@ -7,9 +7,7 @@ services:
       args:
         VARIANT: "14"
     ports:
-      - "3000:3000"
-      - "8080:8080"
-      - "127.0.01:9222:9222"
+      - "127.0.0.1:9222:9222"
     links:
       - postgres
     volumes:

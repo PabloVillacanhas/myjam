@@ -6,7 +6,7 @@
 			"port": 9223,
 			"request": "attach",
 			"type": "pwa-chrome",
-			"webRoot": "${workspaceFolder}/src"
+			"webRoot": "${workspaceFolder}/src",
 		},
 		{
 			"type": "node",
