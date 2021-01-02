@@ -89,7 +89,7 @@ describe('GET /api/sessions', function () {
     chai.request(server)
       .post('/api/sessions/AAA/tracks')
       .set('content-type', 'application/json')
-      .send({ id: 0, name: 'random' })
+      .send({ id: 'vrsdG3SDas13FhX', name: 'random' })
       .end(function (err, res) {
         expect(res.status).to.equal(201)
         Knex.select().from('sessions_tracks').then(
@@ -105,10 +105,10 @@ describe('GET /api/sessions', function () {
     chai.request(server)
       .post('/api/sessions/AAA/tracks')
       .set('content-type', 'application/json')
-      .send({ id: 0, name: 'random' })
+      .send({ id: 'vrsdG3SDas13FhX', name: 'random' })
       .end(function (err, res) {
         expect(res.status).to.equal(204)
-        Knex.select('votes').from('sessions_tracks').where({ track_id: 0 })
+        Knex.select('votes').from('sessions_tracks').where({ track_id: 'vrsdG3SDas13FhX' })
           .then((r) => {
             expect(r[0].votes).equals(1);
             done();
@@ -118,10 +118,10 @@ describe('GET /api/sessions', function () {
 
   it('should return 201 and increment a vote when vote a track', function (done) {
     chai.request(server)
-      .post('/api/sessions/AAA/tracks/1/vote')
+      .post('/api/sessions/AAA/tracks/keAJT0e6DG/vote')
       .end(function (err, res) {
         expect(res.status).to.equal(204)
-        Knex.select('votes').from('sessions_tracks').where({ track_id: 1 })
+        Knex.select('votes').from('sessions_tracks').where({ track_id: 'keAJT0e6DG' })
           .then((r) => {
             expect(r[0].votes).equals(1);
             done();

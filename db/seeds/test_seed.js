@@ -11,15 +11,15 @@ exports.seed = function (knex) {
       ])
     }).then(() => {
       return knex('tracks').insert([
-        { id: 1, name: 'Ready to start' },
-        { id: 2, name: 'Besame mucho' },
-        { id: 3, name: 'Comfortably numb' }
+        { id: 'keAJT0e6DG', name: 'Ready to start' },
+        { id: 'EsBVp6q7Aq', name: 'Besame mucho' },
+        { id: 'kKgZnrDOc8', name: 'Comfortably numb' }
       ])
     }).then(() => {
       return knex('sessions_tracks').insert([
-        { session_code: 'AAA', track_id: 1 },
-        { session_code: 'AAA', track_id: 2 },
-        { session_code: 'AAA', track_id: 3 }
+        { session_code: 'AAA', track_id: 'keAJT0e6DG' },
+        { session_code: 'AAA', track_id: 'EsBVp6q7Aq' },
+        { session_code: 'AAA', track_id: 'kKgZnrDOc8' }
       ])
     });
 }
