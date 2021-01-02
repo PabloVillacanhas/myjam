@@ -19,7 +19,7 @@ describe('GET /api/sessions', function () {
     await Knex.migrate.down().then(() => Knex.migrate.latest().then(() => Knex.seed.run()))
   })
 
-  it('should return all sessions', function (done) {
+  it('SESSION-1 should return all sessions', function (done) {
     chai.request(server)
       .get('/api/sessions')
       .end(function (err, res) {
@@ -29,7 +29,7 @@ describe('GET /api/sessions', function () {
       });
   });
 
-  it('should create a session', function (done) {
+  it('SESSION-2 should create a session', function (done) {
     chai.request(server)
       .post('/api/sessions')
       .set('content-type', 'application/json')
@@ -44,26 +44,26 @@ describe('GET /api/sessions', function () {
       });
   });
 
-  it('should return a session given its id', function (done) {
+  it('SESSION-3 should return a session given its id', function (done) {
     chai.request(server)
       .get('/api/sessions/AAA')
       .end(function (err, res) {
         expect(res.status).to.equal(200)
-        expect(res.body).to.have.lengthOf(1)
+        expect(res.body).to.have.property('tracks')
         done();
       });
   });
 
-  it('should return not found session', function (done) {
+  it('SESSION-4 should return not found session', function (done) {
     chai.request(server)
-      .get('/api/sessions/UNDEFINED')
+      .get('/api/sessions/noexist')
       .end(function (err, res) {
         expect(res.status).to.equal(404)
         done();
       });
   });
 
-  it('should return tracks of session by session id', function (done) {
+  it('SESSION-5 should return tracks of session by session id', function (done) {
     chai.request(server)
       .get('/api/sessions/AAA/tracks')
       .end(function (err, res) {
@@ -74,7 +74,7 @@ describe('GET /api/sessions', function () {
       });
   });
 
-  it('should return a 400 error trying to add a track without correct body', function (done) {
+  it('SESSION-6 should return a 400 error trying to add a track without correct body', function (done) {
     chai.request(server)
       .post('/api/sessions/AAA/tracks')
       .set('content-type', 'application/json')
@@ -85,7 +85,7 @@ describe('GET /api/sessions', function () {
       });
   });
 
-  it('should return 204 and attach to session when create with correct body and track does not exist', function (done) {
+  it('SESSION-7 should return 204 and attach to session when create with correct body and track does not exist', function (done) {
     chai.request(server)
       .post('/api/sessions/AAA/tracks')
       .set('content-type', 'application/json')
@@ -101,7 +101,7 @@ describe('GET /api/sessions', function () {
       });
   });
 
-  it('should return 201 and increment a vote when create with correct body and track exist', function (done) {
+  it('SESSION-8 should return 201 and increment a vote when create with correct body and track exist', function (done) {
     chai.request(server)
       .post('/api/sessions/AAA/tracks')
       .set('content-type', 'application/json')
@@ -116,7 +116,7 @@ describe('GET /api/sessions', function () {
       });
   });
 
-  it('should return 201 and increment a vote when vote a track', function (done) {
+  it('SESSION-9 should return 201 and increment a vote when vote a track', function (done) {
     chai.request(server)
       .post('/api/sessions/AAA/tracks/keAJT0e6DG/vote')
       .end(function (err, res) {

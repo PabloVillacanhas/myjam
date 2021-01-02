@@ -1,6 +1,8 @@
 'use strict'
 
 const createBaseCRUD = require('./baseCRUD')
+const knex = require('../../db/knex')
+const tracksService = require('./tracksService')(knex)
 
 const name = 'Session'
 const tableName = 'sessions'
@@ -20,7 +22,17 @@ module.exports = knex => {
 		selectableProps
 	})
 
+	const findOneWithTracks = (filters) => {
+		return crud.findOne(filters).then((session) =>
+			session ?
+				tracksService.findTracksOfSession(filters.id)
+					.then((tracks) => { session.tracks = tracks; return session })
+				: session
+		)
+	}
+
 	return {
-		...crud
+		...crud,
+		findOneWithTracks
 	}
 }

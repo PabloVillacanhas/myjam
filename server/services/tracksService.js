@@ -9,8 +9,6 @@ const tableName = 'tracks'
 const selectableProps = [
 	'id',
 	'name',
-	'updated_at',
-	'created_at'
 ]
 
 module.exports = knex => {
@@ -22,10 +20,15 @@ module.exports = knex => {
 	})
 
 	// Augment default `create` function to include custom `beforeSave` logic.
-	const create = props => crud.create(props)
+	const findTracksOfSession = sessionId => {
+		return knex.select([...selectableProps, 'sessions_tracks.votes']).from('tracks')
+			.innerJoin('sessions_tracks', 'sessions_tracks.track_id', "tracks.id")
+			.where({ session_id: sessionId })
+			.catch(e => console.log('e', e))
+	}
 
 	return {
-		...guts,
-		create
+		...crud,
+		findTracksOfSession
 	}
 }

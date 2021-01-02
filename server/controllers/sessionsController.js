@@ -3,11 +3,10 @@ const knex = require('../../db/knex')
 const sessionService = require('../services/sessionService')(knex)
 
 exports.get_session = function (req, res) {
-	sessionService.findOne(req.body)
-		.then(() => res.status(201).send())
-		.catch(e => {
-			res.status(500).send()
-		})
+	console.log('req.params.id', req.params.id)
+	sessionService.findOneWithTracks({ id: req.params.id })
+		.then((session) => session ? res.send(session) : res.status(404).send())
+		.catch(e => res.status(500).send(e))
 };
 
 exports.create_session = function (req, res) {
@@ -16,8 +15,4 @@ exports.create_session = function (req, res) {
 		.catch(e => {
 			res.status(500).send()
 		})
-};
-
-exports.get_session = function (req, res) {
-	res.send('NOT IMPLEMENTED: session get: ' + req.params.id);
 };

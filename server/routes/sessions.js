@@ -11,21 +11,7 @@ apiRouter.get('/', function (req, res) {
 
 apiRouter.post('/', sessionsController.create_session)
 
-apiRouter.get('/:id', function (req, res) {
-	Knex.from('sessions').where({ id: req.params.id }).then((session) => {
-		session.length > 0 ?
-			Knex.select('tracks.id', 'tracks.name', 'sessions_tracks.votes').from('tracks')
-				.innerJoin('sessions_tracks', 'sessions_tracks.track_id', "tracks.id")
-				.where({ session_id: req.params.id })
-				.then((tracks) => {
-					session[0].tracks = tracks
-					res.send(session)
-				}).catch((e) => console.log('e :>> ', e))
-			:
-			res.status(404).send()
-	}
-	)
-})
+apiRouter.get('/:id', sessionsController.get_session)
 
 apiRouter.get('/:id/tracks', function (req, res) {
 	Knex.select('tracks.id', 'tracks.name', 'sessions_tracks.votes').from('tracks')
