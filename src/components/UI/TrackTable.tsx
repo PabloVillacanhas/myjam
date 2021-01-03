@@ -19,7 +19,6 @@ export default function TrackTable(props: ITableProps) {
 
   useEffect(() => {
     setTracks(props.tracks)
-    console.log('tracks', props.tracks)
   }, [props.tracks])
 
   return (

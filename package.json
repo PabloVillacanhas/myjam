@@ -81,6 +81,7 @@
     "parse": "^2.19.0",
     "pg": "^8.5.1",
     "react-router-dom": "^5.2.0",
-    "spotify-web-api-js": "^1.5.1"
+    "socket.io": "^3.0.4",
+    "socket.io-client": "^3.0.4"
   }
 }

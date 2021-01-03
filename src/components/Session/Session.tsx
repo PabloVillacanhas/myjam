@@ -6,6 +6,7 @@ import { searchTrackByNameContains, postTrackIntoSession, voteTrack } from '../.
 import { Container, TextField } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete/Autocomplete'
 import Table from '../UI/TrackTable'
+import { io } from 'socket.io-client'
 
 interface Props {}
 
@@ -17,7 +18,12 @@ const SessionPage = (props: Props) => {
   const [filterName, setFilterName] = useState('')
 
   useEffect(() => {
-    getSession(id).then((session) => setSession(session))
+    const socket = io({ transports: ['websocket'] })
+    getSession(id).then((session) => {
+      setSession(session)
+      socket.on(`votes/${session.id}`, (msg) => console.log('votes', msg))
+      socket.emit('join', session.id)
+    })
   }, [])
 
   useEffect(() => {
