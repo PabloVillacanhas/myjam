@@ -33,6 +33,7 @@ module.exports = knex => {
 
 	const incrementVotesBy1 = async (session_id, track_id) => {
 		return knex('sessions_tracks')
+			.returning(['votes', 'track_id'])
 			.where({ session_id: session_id, track_id: track_id })
 			.increment('votes')
 	}

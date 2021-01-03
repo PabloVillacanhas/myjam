@@ -23,8 +23,8 @@ exports.create_session = function (req, res) {
 
 exports.vote_track = function (req, res) {
 	sessionService.incrementVotesBy1(req.params.id, req.params.track_id)
-		.then(() => {
-			socket.emit(`votes/${req.params.id}`, 'hola')
+		.then((track) => {
+			socket.emit(`votes/${req.params.id}`, track[0])
 			res.status(204).send()
 		})
 		.catch(e => {
