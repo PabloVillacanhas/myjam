@@ -40,7 +40,7 @@ export default function TrackTable(props: ITableProps) {
               </TableCell>
               <TableCell align="right">{row.TrackTime}</TableCell>
               <TableCell align="right">
-                <button onClick={(e) => props.onChangeTrackVote(row)}>{row.votes}</button>
+                <button onClick={(e) => props.onChangeTrackVote(row)}>{row.votes || 0}</button>
               </TableCell>
             </TableRow>
           ))}

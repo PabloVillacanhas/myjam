@@ -40,7 +40,7 @@ module.exports = knex => {
 
 	const insertTrackIntoSession = async (session_id, track) => {
 		return knex.insert(track).into('tracks')
-			.then(() =>
+			.then((track) =>
 				knex.insert({ session_id: session_id, track_id: track.id }).into('sessions_tracks')
 			)
 			.catch(() =>

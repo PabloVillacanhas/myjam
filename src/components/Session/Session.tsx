@@ -23,11 +23,19 @@ const SessionPage = (props: Props) => {
       setSession(session)
       socket.emit('join', session.id)
       socket.on(`votes/${session.id}`, (vote) => {
+        console.log('session', session)
         setSession({
           ...session,
           tracks: session.tracks?.map((t) =>
             t.id === vote.track_id ? { ...t, votes: vote.votes } : t,
           ),
+        })
+      })
+      socket.on(`tracks/${session.id}`, (track) => {
+        console.log('session', session)
+        setSession({
+          ...session,
+          tracks: [...session.tracks, track],
         })
       })
     })

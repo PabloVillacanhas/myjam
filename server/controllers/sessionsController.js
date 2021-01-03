@@ -34,7 +34,10 @@ exports.vote_track = function (req, res) {
 
 exports.post_trackIntoSession = function (req, res) {
 	sessionService.insertTrackIntoSession(req.params.id, req.body)
-		.then((e) => res.status(204).send())
+		.then((track) => {
+			socket.emit(`tracks/${req.params.id}`, req.body)
+			res.status(204).send()
+		})
 		.catch(e => {
 			res.status(500).send()
 		})
