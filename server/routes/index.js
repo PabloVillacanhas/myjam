@@ -1,6 +1,5 @@
 const express = require('express')
 const apiRouter = express.Router()
-
 var bodyParser = require('body-parser')
 var jsonParser = bodyParser.json()
 

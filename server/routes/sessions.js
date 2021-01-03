@@ -1,7 +1,6 @@
 const express = require('express')
 const Knex = require('../../db/knex')
 const apiRouter = express.Router()
-const { body, validationResult } = require('express-validator');
 
 const sessionsController = require('../controllers/sessionsController')
 const trackValidator = require('../validators/validateTrack')

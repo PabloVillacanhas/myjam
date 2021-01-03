@@ -1,6 +1,7 @@
 // Display list of all BookInstances.
 const knex = require('../../db/knex')
 const sessionService = require('../services/sessionService')(knex)
+const socket = require('../ws/sockets').socket
 
 exports.findAll_session = function (req, res) {
 	sessionService.findAll().then((sessions) => res.send(sessions))
@@ -22,7 +23,10 @@ exports.create_session = function (req, res) {
 
 exports.vote_track = function (req, res) {
 	sessionService.incrementVotesBy1(req.params.id, req.params.track_id)
-		.then(() => res.status(204).send())
+		.then(() => {
+			socket.emit(`votes/${req.params.id}`, 'hola')
+			res.status(204).send()
+		})
 		.catch(e => {
 			res.status(500).send()
 		})

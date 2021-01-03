@@ -11,7 +11,7 @@ const server = app.listen(process.env.PORT, () => {
   console.log(`Express web server started: http://localhost:${process.env.PORT}`);
 });
 
-require('./server/ws/sockets').io(server)
+require('./server/ws/sockets').init(server)
 
 if (process.env.NODE_ENV == 'development') {
   app.use('*', proxy({ target: process.env.WEBPACK_SERVER, changeOrigin: true }));

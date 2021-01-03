@@ -21,8 +21,8 @@ const SessionPage = (props: Props) => {
     const socket = io({ transports: ['websocket'] })
     getSession(id).then((session) => {
       setSession(session)
-      socket.on(`votes/${session.id}`, (msg) => console.log('votes', msg))
       socket.emit('join', session.id)
+      socket.on(`votes/${session.id}`, (msg) => console.log('votes', msg))
     })
   }, [])
 
