@@ -11,7 +11,7 @@ import { io } from 'socket.io-client'
 interface Props {}
 
 const SessionPage = (props: Props) => {
-  let { id } = useParams()
+  const { id } = useParams()
 
   const [session, setSession] = useState<Session>()
   const [optiontracks, setOptiontracks] = useState<Array<any>>([])

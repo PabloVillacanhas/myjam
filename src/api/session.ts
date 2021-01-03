@@ -7,7 +7,7 @@ const postSession = async (session: Session) => {
 }
 
 const getSession = async (id: string): Promise<Session> => {
-  let response = await fetch(`/api/sessions/${id}`)
+  const response = await fetch(`/api/sessions/${id}`)
   return response.json()
 }
 
