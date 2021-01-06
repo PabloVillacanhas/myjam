@@ -7,20 +7,16 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import { Track } from '../../typings/types'
-import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { voteTrack } from '../../state/actions/session'
 
-export interface ITableProps {
-  tracks: Array<Track>
-  onChangeTrackVote: (track) => void
+interface TrackTableProps {
+  sessionId: string
 }
 
-export default function TrackTable(props: ITableProps) {
-  const [tracks, setTracks] = useState([])
-
-  useEffect(() => {
-    console.log('props.tracks', props.tracks)
-    setTracks(props.tracks)
-  }, [props.tracks])
+export default function TrackTable(props: TrackTableProps) {
+  const tracks: Array<Track> = useSelector((state) => state.session.tracks)
+  const dispatch = useDispatch()
 
   return (
     <TableContainer component={Paper}>
@@ -33,14 +29,17 @@ export default function TrackTable(props: ITableProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tracks.map((row) => (
+          {JSON.stringify(tracks)}
+          {tracks?.map((row) => (
             <TableRow key={row.id}>
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.TrackTime}</TableCell>
+              <TableCell align="right">undefined</TableCell>
               <TableCell align="right">
-                <button onClick={(e) => props.onChangeTrackVote(row)}>{row.votes || 0}</button>
+                <button onClick={(e) => dispatch(voteTrack(props.sessionId, row.id))}>
+                  {row.votes || 0}
+                </button>
               </TableCell>
             </TableRow>
           ))}

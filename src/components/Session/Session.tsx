@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getSession } from '../../api/session'
+import { useDispatch } from 'react-redux'
 import { Session, Track } from '../../typings/types'
 import { searchTrackByNameContains, postTrackIntoSession, voteTrack } from '../../api/track'
 import { Container, TextField } from '@material-ui/core'
@@ -12,33 +12,21 @@ interface Props {}
 
 const SessionPage = (props: Props) => {
   const { id } = useParams()
-
+  const dispatch = useDispatch()
   const [session, setSession] = useState<Session>()
   const [optiontracks, setOptiontracks] = useState<Array<any>>([])
   const [filterName, setFilterName] = useState('')
 
   useEffect(() => {
-    const socket = io({ transports: ['websocket'] })
-    getSession(id).then((session) => {
-      setSession(session)
-      socket.emit('join', session.id)
-      socket.on(`votes/${session.id}`, (vote) => {
-        console.log('session', session)
-        setSession({
-          ...session,
-          tracks: session.tracks?.map((t) =>
-            t.id === vote.track_id ? { ...t, votes: vote.votes } : t,
-          ),
-        })
-      })
-      socket.on(`tracks/${session.id}`, (track) => {
-        console.log('session', session)
-        setSession({
-          ...session,
-          tracks: [...session.tracks, track],
-        })
-      })
-    })
+    dispatch({ type: 'FETCH_SESSION', payload: { sessionId: id } })
+    dispatch({ type: 'WS_JOIN_SESSION', payload: { sessionId: id } })
+    //   socket.on(`tracks/${session.id}`, (track) => {
+    //     setSession({
+    //       ...session,
+    //       tracks: [...session.tracks, track],
+    //     })
+    //   })
+    // })
   }, [])
 
   useEffect(() => {
@@ -48,19 +36,6 @@ const SessionPage = (props: Props) => {
       })
   }, [filterName])
 
-  const onChangeTrackVote = (track) => {
-    voteTrack(session, track).then(() =>
-      setSession({
-        ...session,
-        tracks: [
-          ...session.tracks.map((t) =>
-            t.id === track.id ? { ...t, votes: track.votes + 1 } : { ...t },
-          ),
-        ],
-      }),
-    )
-  }
-
   return (
     <Container maxWidth="md">
       <Autocomplete
@@ -68,7 +43,6 @@ const SessionPage = (props: Props) => {
         options={optiontracks as Array<Track>}
         clearOnEscape={true}
         onChange={(event: any, track: Track | null) => {
-          console.log('session', session)
           postTrackIntoSession(session, track).then(() => {
             track.votes = 0
             setSession({ ...session, tracks: [...session.tracks, track] })
@@ -82,7 +56,7 @@ const SessionPage = (props: Props) => {
           <TextField {...params} label="Combo box" variant="outlined" value={filterName} />
         )}
       />
-      <Table tracks={session?.tracks || []} onChangeTrackVote={onChangeTrackVote}></Table>
+      <Table sessionId={id}></Table>
     </Container>
   )
 }

@@ -12,9 +12,7 @@ import React, { useState } from 'react'
 import styles from './login.module.scss'
 import { Link, useHistory } from 'react-router-dom'
 
-interface Props {}
-
-export const JoinSession = (props: Props) => {
+export const JoinSession = (props) => {
   const history = useHistory()
 
   const [sessionid, setSessionid] = useState<string>(undefined)

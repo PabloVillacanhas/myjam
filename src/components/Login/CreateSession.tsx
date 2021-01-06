@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import { Session } from '../../typings/types'
 import React, { useState } from 'react'
-import { postSession } from '../../api/session'
+import Api from '../../api/session'
 import styles from './login.module.scss'
 import { Link, useHistory } from 'react-router-dom'
 
@@ -40,7 +40,7 @@ export const CreateSession = (props: Props) => {
             variant="contained"
             color="primary"
             onClick={() => {
-              postSession(formValues).then(() => history.push(`session/${formValues.id}`))
+              Api.postSession(formValues).then(() => history.push(`session/${formValues.id}`))
             }}
           >
             Create the session
