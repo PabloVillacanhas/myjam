@@ -29,7 +29,6 @@ export default function TrackTable(props: TrackTableProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {JSON.stringify(tracks)}
           {tracks?.map((row) => (
             <TableRow key={row.id}>
               <TableCell component="th" scope="row">

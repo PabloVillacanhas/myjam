@@ -10,6 +10,9 @@ const wsMiddleware = (store) => (next) => (action) => {
       socket.on(`votes/${action.payload.sessionId}`, (vote) => {
         next({ type: 'WS_UPDATE_TRACK', payload: vote })
       })
+      socket.on(`tracks/${action.payload.sessionId}`, (track) => {
+        next({ type: 'WS_ADD_TRACK', payload: track })
+      })
       break
     }
     default:

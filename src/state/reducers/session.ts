@@ -12,8 +12,8 @@ function tracks(state = INITIAL_STATE, action: AnyAction): Session {
   switch (action.type) {
     case 'SESSION_FETCH_SUCCEEDED':
       return action.payload
-    // case 'WS_ADD_TRACK':
-    //   return {...state, action.payload}
+    case 'WS_ADD_TRACK':
+      return { ...state, tracks: [...state.tracks, action.payload] }
     case 'WS_UPDATE_TRACK':
       return {
         ...state,

@@ -12,7 +12,7 @@ apiRouter.get('/', function (req, resp) {
     {
       headers: {
         Authorization:
-          'Bearer BQAtXNiOuSSaOdZRaOn25IWtuaU8NC9S_R2mUSuSCQ1XyaaVzo7wUFs3jp2nEgJ3cq1HpwQQgd7YYDwnwdQ',
+          'Bearer BQBfjcR054s3xUjMo6ahS1KswplejXpIpAhpRKt0rgbBcdamUoxtNRN0Vt84_f5rrIlvbZbmeexAMeXjxZU',
       },
     },
   ).then((res) =>

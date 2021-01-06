@@ -14,12 +14,7 @@ import Api from '../../api/session'
 import styles from './login.module.scss'
 import { Link, useHistory } from 'react-router-dom'
 
-interface Props {
-  a: string
-  b: string
-}
-
-export const CreateSession = (props: Props) => {
+export const CreateSession = (props) => {
   const history = useHistory()
   const [formValues, setFormValues] = useState<Session>(undefined)
 
