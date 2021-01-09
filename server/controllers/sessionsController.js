@@ -8,7 +8,7 @@ exports.findAll_session = function (req, res) {
 };
 
 exports.get_session = function (req, res) {
-	sessionService.findOneWithTracks({ id: req.params.id })
+	sessionService.findOneWithTracks({ id: req.params.session_id })
 		.then((session) => session ? res.send(session) : res.status(404).send())
 		.catch(e => res.status(500).send(e))
 };
@@ -22,9 +22,9 @@ exports.create_session = function (req, res) {
 };
 
 exports.vote_track = function (req, res) {
-	sessionService.incrementVotesBy1(req.params.id, req.params.track_id)
+	sessionService.incrementVotesBy1(req.params.session_id, req.params.track_id)
 		.then((track) => {
-			socket.emit(`votes/${req.params.id}`, track[0])
+			socket.emit(`votes/${req.params.session_id}`, track[0])
 			res.status(204).send()
 		})
 		.catch(e => {
@@ -33,9 +33,9 @@ exports.vote_track = function (req, res) {
 };
 
 exports.post_trackIntoSession = function (req, res) {
-	sessionService.insertTrackIntoSession(req.params.id, req.body)
+	sessionService.insertTrackIntoSession(req.params.session_id, req.body)
 		.then((track) => {
-			socket.emit(`tracks/${req.params.id}`, req.body)
+			socket.emit(`tracks/${req.params.session_id}`, req.body)
 			res.status(204).send()
 		})
 		.catch(e => {
