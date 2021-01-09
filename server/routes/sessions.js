@@ -1,5 +1,4 @@
 const express = require('express')
-const Knex = require('../../db/knex')
 const apiRouter = express.Router()
 
 const sessionsController = require('../controllers/sessionsController')
