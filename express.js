@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors')
 const app = express();
 const expressSwagger = require('express-swagger-generator')(app);
+
 let options = {
   swaggerDefinition: {
     info: {
@@ -29,6 +30,7 @@ let options = {
   basedir: __dirname, //app absolute path
   files: ['./server/routes/**/*.js', './server/models/**/*.js'] //Path to the API handle folder
 };
+
 expressSwagger(options)
 
 require('./server/routes')(app);
