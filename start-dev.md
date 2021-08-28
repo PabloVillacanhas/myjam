@@ -30,4 +30,4 @@ La parte de frontend está hecha con la librería de React, la cual tiene implem
 
 Para levantar el servidor que compila el codigo cliente, usaremos el comando ```webpack-dev-server --config=configs/webpack/dev.js``` 
 
-
+[![arquitectura.jpg](https://i.postimg.cc/85QTKRMZ/arquitectura.jpg)](https://postimg.cc/GBK09sMD)
