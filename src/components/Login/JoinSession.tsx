@@ -22,7 +22,7 @@ export const JoinSession = (props) => {
   }
 
   return (
-    <Container maxWidth="md" className={styles.Container}>
+
       <Card>
         <CardContent className={styles.CardContainer}>
           <FormControl>
